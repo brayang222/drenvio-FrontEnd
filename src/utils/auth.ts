@@ -1,9 +1,9 @@
-import { tokenKey } from "../constants";
+import { TOKEN_KEY } from "../constants";
 import { removeToken } from "../store/token";
 
 export const isAuthenticated = () => {
   try {
-    const user = localStorage.getItem(tokenKey);
+    const user = localStorage.getItem(TOKEN_KEY);
     if (!user) return { isAuth: false, user: "" };
     const payload = JSON.parse(user);
     // console.log(payload);

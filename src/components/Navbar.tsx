@@ -19,22 +19,16 @@ export const NavbarComponent = () => {
       {auth?.isAuth ? (
         <>
           <li className="hidden sm:flex gap-7 *:font-medium">
-            <Link color="foreground" href="/products">
+            <Link color="foreground" href="/">
               Productos
             </Link>
+            <Link color="foreground" href="/special-prices">
+              Precios especiales
+            </Link>
             {auth.user.role === "admin" ? (
-              <>
-                <Link
-                  color="foreground"
-                  aria-current="page"
-                  href="/admin/users"
-                >
-                  Users
-                </Link>
-                <Link color="foreground" href="/admin/special-prices">
-                  Precios especiales
-                </Link>
-              </>
+              <Link color="foreground" aria-current="page" href="/admin/users">
+                Users
+              </Link>
             ) : (
               <></>
             )}

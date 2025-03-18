@@ -1,1 +1,1 @@
-export const tokenKey = import.meta.env.VITE_JWT_SECRET;
+export const TOKEN_KEY = import.meta.env.VITE_JWT_SECRET;
