@@ -5,16 +5,20 @@ import { useNavigate } from "react-router-dom";
 // import { login } from "../../services/login";
 import { setToken } from "../store/token";
 import { handleChange } from "../utils/handleChange";
+import { createUser } from "../services/user/createUser";
+import { ROLES } from "../enum/roles.enum";
+import { Link } from "@heroui/react";
+import { login } from "../services/user/login";
 
 export function Register() {
   const [user, setUser] = useState({
     name: "",
+    lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "",
-    // role: ROLES.USER,
-    avatar: "",
+    gender: "",
+    role: ROLES.USER,
   });
   const navigate = useNavigate();
   const [agreeTerms, setAgreeTerms] = useState(false);
@@ -38,26 +42,26 @@ export function Register() {
     try {
       setIsLoading(true);
 
-      // const createdUser = await createUser({
-      //   name: user.name,
-      //   email: user.email,
-      //   password: user.password,
-      //   phone: user.phone,
-      //   role: user.role,
-      //   avatar: user.avatar,
-      // });
+      const createdUser = await createUser({
+        name: user.name,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password,
+        gender: user.gender,
+        role: user.role,
+      });
       console.log("Registration successful");
 
-      // const logguedUser = await login({
-      //   email: user.email,
-      //   password: user.password,
-      // });
-      // setToken(JSON.stringify(logguedUser));
-      // console.log(logguedUser);
+      const logguedUser = await login({
+        email: user.email,
+        password: user.password,
+      });
+      setToken(JSON.stringify(logguedUser));
+      console.log(logguedUser);
 
       navigate("/");
 
-      // return createdUser;
+      return createdUser;
     } catch (err) {
       setError("Failed to register. Please try again.");
       console.error(err);
@@ -67,7 +71,7 @@ export function Register() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-4 text-gray-100">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-primary p-4 text-gray-100">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight text-white">
@@ -102,7 +106,7 @@ export function Register() {
               placeholder="John Doe"
               onChange={(e) => handleChange(e, setUser)}
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-secondary border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
 
@@ -120,7 +124,7 @@ export function Register() {
               placeholder="name@example.com"
               onChange={(e) => handleChange(e, setUser)}
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-secondary border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
 
@@ -137,7 +141,7 @@ export function Register() {
               name="password"
               onChange={(e) => handleChange(e, setUser)}
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-secondary border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
 
@@ -154,7 +158,7 @@ export function Register() {
               name="confirmPassword"
               onChange={(e) => handleChange(e, setUser)}
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-secondary border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
 
@@ -195,6 +199,17 @@ export function Register() {
             </a>
           </p>
         </div>
+        <Link
+          href="/"
+          className="flex items-center justify-center gap-2 px-4 py-2 border border-white text-white hover:bg-white *:hover:text-black transition-colors duration-200 rounded-md"
+        >
+          <i
+            className="icon-[bx--home] text-white font-2xl"
+            role="img"
+            aria-hidden="true"
+          />
+          <span>Ir al inicio</span>
+        </Link>
       </div>
     </div>
   );

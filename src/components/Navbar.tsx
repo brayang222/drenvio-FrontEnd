@@ -1,7 +1,7 @@
 import { StoreIcon } from "./StoreIcon";
 import { Link } from "@heroui/react";
-import { UserProfileDropdown } from "./UserProfileDropdown";
 import { isAuthenticated } from "../utils/auth";
+import { UserProfileDropdown } from "./user/UserProfileDropdown";
 
 export const NavbarComponent = () => {
   const auth = isAuthenticated();
