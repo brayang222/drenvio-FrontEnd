@@ -35,7 +35,7 @@ export const NavbarComponent = () => {
           <UserProfileDropdown user={auth.user} />
         </>
       ) : (
-        <div className="flex gap-4 *:font-medium">
+        <div className="flex gap-4 *:font-medium *:text-secondary">
           <Link href="/login" color="foreground">
             Ingresar
           </Link>
