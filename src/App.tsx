@@ -4,7 +4,7 @@ import { HeroUIProvider } from "@heroui/react";
 
 function App() {
   return (
-    <main className="flex flex-col w-screen h-screen">
+    <main className="flex flex-col w-full h-full">
       <HeroUIProvider>
         <AppRouter />
       </HeroUIProvider>
