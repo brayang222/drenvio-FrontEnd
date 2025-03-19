@@ -1,11 +1,12 @@
 import axios from "axios";
 import { errorHandler } from "../../utils/errorHandler";
+import { BACKEND_URL } from "../../constants";
 
 export const login = async (user: { email: string; password: string }) => {
   try {
     const options = {
       method: "POST",
-      url: `http://localhost:5100/users/login/`,
+      url: `${BACKEND_URL}/users/login/`,
       data: user,
       headers: {
         "Content-Type": "application/json",

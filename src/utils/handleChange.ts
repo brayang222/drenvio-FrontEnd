@@ -8,11 +8,10 @@ export const handleChange = (
       >
     | CalendarDate
     | null,
-  setData: React.Dispatch<React.SetStateAction<SpecialPrice>>,
+  setData: React.Dispatch<React.SetStateAction<any>>,
   fieldName?: keyof SpecialPrice
 ) => {
   if (e && typeof e === "object" && "target" in e) {
-    // Es un evento de input
     const { name, value } = e.target;
     console.log(`Campo cambiado: ${name}, Nuevo valor: ${value}`);
     setData((prev: any) => ({
@@ -20,9 +19,8 @@ export const handleChange = (
       [name]: value,
     }));
   } else if (fieldName) {
-    // Evento del DatePicker (CalendarDate)
-    const date = e?.toDate("UTC"); // Convierte CalendarDate a Date
-    setData((prev) => ({
+    const date = e?.toDate("UTC");
+    setData((prev: any) => ({
       ...prev,
       [fieldName]: date?.toISOString(),
     }));

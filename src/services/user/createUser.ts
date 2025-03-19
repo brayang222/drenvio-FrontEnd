@@ -1,11 +1,12 @@
 import axios, { AxiosError } from "axios";
 import { User } from "../../schemas/User";
+import { BACKEND_URL } from "../../constants";
 
 export const createUser = async (user: User) => {
   try {
     const options = {
       method: "POST",
-      url: "",
+      url: `${BACKEND_URL}/users/register`,
       data: user,
       headers: {
         "Content-Type": "application/json",

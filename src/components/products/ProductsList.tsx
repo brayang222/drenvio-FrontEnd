@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react";
-import { getAllProducts } from "../../services/products/getAllProducts";
-import { Product } from "../../schemas/Product";
+import { useEffect } from "react";
 import { ProductCard } from "./ProductCard";
+import { useProducts } from "../../hooks/useProducts";
 
 export const ProductsList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  async function fetchAllProducts() {
-    try {
-      const productsData = await getAllProducts();
-      setProducts(productsData);
-      return productsData;
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  const { products, fetchProducts } = useProducts();
 
   useEffect(() => {
-    fetchAllProducts();
+    fetchProducts();
   }, []);
 
   if (!products) return <div className="p-8 text-3xl">Cargando...</div>;
