@@ -1,11 +1,10 @@
 import { StoreIcon } from "./StoreIcon";
 import { Link } from "@heroui/react";
-import { UserProfileDropdown } from "./UserProfileDropdown";
 import { isAuthenticated } from "../utils/auth";
+import { UserProfileDropdown } from "./user/UserProfileDropdown";
 
 export const NavbarComponent = () => {
   const auth = isAuthenticated();
-  // console.log(auth.user.name);
 
   return (
     <div className="bg-primary text-secondary py-3 px-5 flex items-center justify-between w-full border-b-2 z-10">
@@ -18,23 +17,17 @@ export const NavbarComponent = () => {
       </a>
       {auth?.isAuth ? (
         <>
-          <li className="hidden sm:flex gap-7 *:font-medium">
-            <Link color="foreground" href="/products">
+          <li className="hidden sm:flex gap-7 *:font-medium *:text-secondary">
+            <Link color="foreground" href="/">
               Productos
             </Link>
+            <Link color="foreground" href="/special-prices">
+              Precios especiales
+            </Link>
             {auth.user.role === "admin" ? (
-              <>
-                <Link
-                  color="foreground"
-                  aria-current="page"
-                  href="/admin/users"
-                >
-                  Users
-                </Link>
-                <Link color="foreground" href="/admin/special-prices">
-                  Precios especiales
-                </Link>
-              </>
+              <Link color="foreground" aria-current="page" href="/admin/users">
+                Users
+              </Link>
             ) : (
               <></>
             )}

@@ -1,21 +1,12 @@
-// import { User } from "../../schemas/Users";
-// import { logOut } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
-import { useModal } from "../hooks/useModal";
-import { logOut } from "../utils/auth";
+import { useModal } from "../../hooks/useModal";
+import { logOut } from "../../utils/auth";
+import { User } from "../../schemas/User";
+import { getInitials } from "../../utils/getInitials";
 
-export function UserProfileDropdown({ user }: { user: any }) {
+export function UserProfileDropdown({ user }: { user: User }) {
   const navigate = useNavigate();
   const { isOpen, handle, ref } = useModal();
-
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((part) => part[0])
-      .join("")
-      .substring(0, 2)
-      .toUpperCase();
-  };
 
   return (
     <div className="relative" ref={ref}>
@@ -27,17 +18,9 @@ export function UserProfileDropdown({ user }: { user: any }) {
         aria-haspopup="true"
       >
         <div className="relative h-8 w-8 overflow-hidden rounded-full bg-gray-200 ">
-          {user.avatar ? (
-            <img
-              src={user.avatar || "/placeholder.svg"}
-              alt={user.name}
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <span className="flex h-full w-full items-center justify-center text-sm font-medium text-primary">
-              {getInitials(user.name)}
-            </span>
-          )}
+          <span className="flex h-full w-full items-center justify-center text-sm font-medium text-primary">
+            {getInitials(user.name, user.lastName)}
+          </span>
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -66,20 +49,14 @@ export function UserProfileDropdown({ user }: { user: any }) {
           <div className="p-4 border-b border-primary">
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full bg-primary">
-                {user.avatar ? (
-                  <img
-                    src={user.avatar || "/placeholder.svg"}
-                    alt={user.name}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <span className="flex h-full w-full items-center justify-center text-sm font-medium text-secondary">
-                    {getInitials(user.name)}
-                  </span>
-                )}
+                <span className="flex h-full w-full items-center justify-center text-sm font-medium text-secondary">
+                  {getInitials(user.name, user.lastName)}
+                </span>
               </div>
               <div className="flex flex-col">
-                <span className="font-medium text-primary">{user.name}</span>
+                <span className="font-medium text-primary">
+                  {`${user.name} ${user.lastName ? user.lastName : ""}`}
+                </span>
                 <span className="text-xs text-primary">{user.email}</span>
               </div>
             </div>

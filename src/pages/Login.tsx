@@ -1,8 +1,9 @@
 import { useState } from "react";
-// import { login } from "../../services/login";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "../store/token";
 import { handleChange } from "../utils/handleChange";
+import { Link } from "@heroui/react";
+import { login } from "../services/user/login";
 
 export function Login() {
   const navigate = useNavigate();
@@ -19,13 +20,13 @@ export function Login() {
 
     try {
       setIsLoading(true);
-      // const logguedUser = await login(user);
-      // setToken(JSON.stringify(logguedUser));
-      // console.log(logguedUser);
+      const logguedUser = await login(user);
+      setToken(JSON.stringify(logguedUser));
+      console.log(logguedUser);
 
       navigate("/");
       window.location.reload();
-      // return logguedUser;
+      return logguedUser;
     } catch (err) {
       console.log(user);
       setError(String(err));
@@ -36,7 +37,7 @@ export function Login() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-4 text-gray-100">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-primary p-4 text-gray-100">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight text-white">
@@ -70,7 +71,7 @@ export function Login() {
               defaultValue={user.email}
               onChange={(e) => handleChange(e, setUser)}
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-secondary border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
           <div className="space-y-2">
@@ -95,7 +96,7 @@ export function Login() {
               defaultValue={user.password}
               onChange={(e) => handleChange(e, setUser)}
               required
-              className="mt-1 block w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-white focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              className="mt-1 block w-full px-3 py-2 bg-secondary border border-gray-700 rounded-md shadow-sm placeholder-gray-500 text-primary focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             />
           </div>
           <button
@@ -117,6 +118,17 @@ export function Login() {
             </a>
           </p>
         </div>
+        <Link
+          href="/"
+          className="flex items-center justify-center gap-2 px-4 py-2 border border-white text-white hover:bg-white *:hover:text-black transition-colors duration-200 rounded-md"
+        >
+          <i
+            className="icon-[bx--home] text-white font-2xl"
+            role="img"
+            aria-hidden="true"
+          />
+          <span>Ir al inicio</span>
+        </Link>
       </div>
     </div>
   );

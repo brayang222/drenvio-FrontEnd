@@ -1,16 +1,16 @@
-import { tokenKey } from "../constants";
+import { TOKEN_KEY } from "../constants";
 
 export function setToken(user: string) {
-  localStorage.setItem(tokenKey, user);
+  localStorage.setItem(TOKEN_KEY, user);
 }
 
 export function getToken() {
-  const token = localStorage.getItem(tokenKey);
+  const token = localStorage.getItem(TOKEN_KEY);
   return token;
 }
 
 export function removeToken() {
-  localStorage.removeItem(tokenKey);
+  localStorage.removeItem(TOKEN_KEY);
 }
 
 export function headerToken() {}
