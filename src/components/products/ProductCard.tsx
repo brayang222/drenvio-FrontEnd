@@ -8,7 +8,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     const discountPercentaje = discounts?.discountPercentaje;
     const discountMoney = (price * discountPercentaje!) / 100;
 
-    return price - discountMoney;
+    return (price - discountMoney).toFixed(2);
   };
 
   return (
@@ -27,7 +27,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             <div className="flex gap-1">
               <p className="text-xl font-bold">${handleDiscount(price)}</p>
               <p className="text-lg text-gray-400 font-bold line-through lin">
-                ${price}
+                ${price.toFixed(2)}
               </p>
             </div>
           ) : (
