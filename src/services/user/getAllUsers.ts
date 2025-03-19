@@ -1,11 +1,12 @@
 import axios from "axios";
 import { errorHandler } from "../../utils/errorHandler";
+import { BACKEND_URL } from "../../constants";
 
 export const getAllUsers = async () => {
   try {
     const options = {
       method: "GET",
-      url: "http://localhost:5100/users",
+      url: `${BACKEND_URL}/users`,
     };
 
     const { data } = await axios.request(options);
