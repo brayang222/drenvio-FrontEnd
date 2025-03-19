@@ -5,7 +5,6 @@ import { UserProfileDropdown } from "./user/UserProfileDropdown";
 
 export const NavbarComponent = () => {
   const auth = isAuthenticated();
-  // console.log(auth.user.name);
 
   return (
     <div className="bg-primary text-secondary py-3 px-5 flex items-center justify-between w-full border-b-2 z-10">
@@ -18,7 +17,7 @@ export const NavbarComponent = () => {
       </a>
       {auth?.isAuth ? (
         <>
-          <li className="hidden sm:flex gap-7 *:font-medium">
+          <li className="hidden sm:flex gap-7 *:font-medium *:text-secondary">
             <Link color="foreground" href="/">
               Productos
             </Link>

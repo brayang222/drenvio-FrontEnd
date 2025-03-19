@@ -1,7 +1,7 @@
 import axios from "axios";
 import { errorHandler } from "../../utils/errorHandler";
 
-export const deleteSpecialPrice = async (id: string) => {
+export const deleteSpecialPrices = async (id: string) => {
   try {
     const options = {
       method: "DELETE",

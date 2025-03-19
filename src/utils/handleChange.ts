@@ -1,4 +1,5 @@
 import { CalendarDate } from "@heroui/react";
+import { SpecialPrice } from "../schemas/SpecialPrice";
 
 export const handleChange = (
   e:
@@ -7,8 +8,8 @@ export const handleChange = (
       >
     | CalendarDate
     | null,
-  setData: React.Dispatch<React.SetStateAction<any>>,
-  fieldName?: string
+  setData: React.Dispatch<React.SetStateAction<SpecialPrice>>,
+  fieldName?: keyof SpecialPrice
 ) => {
   if (e && typeof e === "object" && "target" in e) {
     // Es un evento de input
@@ -19,11 +20,11 @@ export const handleChange = (
       [name]: value,
     }));
   } else if (fieldName) {
-    // Es un valor directo de DatePicker
-    console.log(`Campo cambiado: ${fieldName}, Nuevo valor: ${e}`);
-    setData((prev: any) => ({
+    // Evento del DatePicker (CalendarDate)
+    const date = e?.toDate("UTC"); // Convierte CalendarDate a Date
+    setData((prev) => ({
       ...prev,
-      [fieldName]: e, // Aquí puedes formatearlo como necesites
+      [fieldName]: date?.toISOString(),
     }));
   }
 };

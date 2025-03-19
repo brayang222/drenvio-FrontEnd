@@ -23,7 +23,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
               </span>
             )}
           </div>
-          {discounts ? (
+          {discounts?.usersDiscounts ? (
             <div className="flex gap-1">
               <p className="text-xl font-bold">${handleDiscount(price)}</p>
               <p className="text-lg text-gray-400 font-bold line-through lin">

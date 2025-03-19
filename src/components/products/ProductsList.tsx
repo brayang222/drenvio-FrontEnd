@@ -10,7 +10,6 @@ export const ProductsList = () => {
     try {
       const productsData = await getAllProducts();
       setProducts(productsData);
-      console.log(products);
       return productsData;
     } catch (error) {
       console.error(error);

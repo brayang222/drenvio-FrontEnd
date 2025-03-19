@@ -4,8 +4,8 @@ export interface SpecialPrice {
   usersDiscounts: UsersDiscount[];
   discountPercentaje: number;
   validUntil: Date;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export interface ProductID {

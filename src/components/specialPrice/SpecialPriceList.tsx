@@ -7,6 +7,10 @@ import { Product } from "../../schemas/Product";
 import { getAllProducts } from "../../services/products/getAllProducts";
 import { User } from "../../schemas/User";
 import { getAllUsers } from "../../services/user/getAllUsers";
+import ModalWithForm from "../forms/FormWithModal";
+import { FormSpecialPrice } from "../forms/FormSpecialPrice";
+import { createSpecialPrices } from "../../services/specialPrices/createSpecialPrices";
+import { deleteSpecialPrices } from "../../services/specialPrices/deleteSpecialPrices";
 
 export const SpecialPriceList = () => {
   const [specialPrices, setSpecialPrices] = useState<SpecialPrice[]>([]);
@@ -25,10 +29,8 @@ export const SpecialPriceList = () => {
 
   async function deleteSpecialPrice(id: string) {
     try {
-      const deletedSpecialPrice = await deleteSpecialPrice(id);
-      console.log(deletedSpecialPrice);
+      await deleteSpecialPrices(id);
       fetchSpecialPrices();
-      return deleteSpecialPrice;
     } catch (error) {
       console.error(error);
     }
@@ -47,9 +49,10 @@ export const SpecialPriceList = () => {
 
   async function createSpecialPrice(specialPrice: SpecialPrice) {
     try {
-      const createdSpecialPrice = await createSpecialPrice(specialPrice);
+      const createdSpecialPrice = await createSpecialPrices(specialPrice);
       console.log(createdSpecialPrice);
       fetchSpecialPrices();
+      return createSpecialPrice;
     } catch (error) {
       console.error(error);
     }
@@ -87,18 +90,44 @@ export const SpecialPriceList = () => {
 
   return (
     <main className="flex flex-col w-screen h-screen p-8 gap-4 bg-primary-50">
-      <h4 className="text-2xl font-bold">Descuentos:</h4>
-      {specialPrices.map((specialPrice) => (
-        <SpecialPriceCard
-          specialPrice={specialPrice}
-          products={products}
-          users={users}
-          key={specialPrice._id}
-          onDelete={deleteSpecialPrice}
-          onEdit={editSpecialPrice}
-          onCreate={createSpecialPrice}
-        />
-      ))}
+      <div className="flex w-full justify-between">
+        <h4 className="text-2xl font-bold">Precios especiales:</h4>
+        <ModalWithForm
+          classes="flex gap-2 items-center bg-primary text-white font-medium py-2 px-4 rounded-md transition-colors"
+          localize={{
+            title: "Nuevo precio especial",
+            buttonText: "Nuevo",
+            description:
+              "Rellena todos los campos de el precio especial. Dale a 'crear' cuando termines.",
+          }}
+          icon={
+            <i
+              className="icon-[tabler--new-section] text-xl"
+              role="img"
+              aria-hidden="true"
+            />
+          }
+        >
+          <FormSpecialPrice
+            onCreate={createSpecialPrice}
+            variant="create"
+            products={products}
+            users={users}
+          />
+        </ModalWithForm>
+      </div>
+      <section className="flex gap-4 flex-wrap">
+        {specialPrices.map((specialPrice) => (
+          <SpecialPriceCard
+            key={specialPrice._id}
+            specialPrice={specialPrice}
+            products={products}
+            users={users}
+            onDelete={deleteSpecialPrice}
+            onEdit={editSpecialPrice}
+          />
+        ))}
+      </section>
     </main>
   );
 };
